@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Completed — DueMind Pro</title>
+  <link rel="stylesheet" href="../css/app.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><i class="fa-solid fa-brain"></i><span>DueMind Pro</span></div>
+  <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></a>
+    <a href="tasks.html" class="nav-item"><i class="fa-solid fa-list-check"></i><span>All Tasks</span></a>
+    <a href="completed.html" class="nav-item active"><i class="fa-solid fa-circle-check"></i><span>Completed</span></a>
+    <a href="analytics.html" class="nav-item"><i class="fa-solid fa-chart-bar"></i><span>Analytics</span></a>
+    <a href="profile.html" class="nav-item"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+  </nav>
+  <div class="sidebar-footer"><button class="btn-logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button></div>
+</aside>
+<div class="main-wrapper">
+  <header class="topbar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+    <div class="topbar-title"><h1>Completed Tasks</h1></div>
+    <div class="topbar-right">
+      <div class="topbar-user"><div class="user-avatar" id="userAvatar">U</div><span id="userName"></span></div>
+    </div>
+  </header>
+  <main class="content">
+    <div class="section-card">
+      <div class="section-card-header">
+        <h2>All Completed Tasks</h2>
+        <span id="completedCount" class="badge-count">0 tasks</span>
+      </div>
+      <div id="completedList" class="task-list">
+        <div class="loading-spinner"><i class="fa-solid fa-spinner fa-spin"></i> Loading...</div>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../js/api.js"></script>
+<script src="../js/completed.js"></script>
+</body></html>

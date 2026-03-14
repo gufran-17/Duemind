@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DueMind Pro — Smart Task Management</title>
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<!-- NAV -->
+<nav class="landing-nav">
+  <div class="nav-brand">
+    <i class="fa-solid fa-brain"></i>
+    <span>DueMind Pro</span>
+  </div>
+  <div class="nav-links">
+    <a href="#features">Features</a>
+    <a href="#how">How It Works</a>
+    <a href="login.html" class="btn-outline">Log In</a>
+    <a href="register.html" class="btn-primary">Get Started Free</a>
+  </div>
+  <button class="nav-toggle" onclick="toggleMenu()"><i class="fa-solid fa-bars"></i></button>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge"><i class="fa-solid fa-bolt"></i> Smart Productivity System</div>
+  <h1>Manage Tasks <span class="gradient-text">Smarter</span>,<br>Finish More Every Day</h1>
+  <p class="hero-sub">DueMind Pro combines intelligent reminders, recurring tasks, and analytics to keep you ahead of every deadline.</p>
+  <div class="hero-cta">
+    <a href="register.html" class="btn-hero-primary">Start for Free <i class="fa-solid fa-arrow-right"></i></a>
+    <a href="login.html" class="btn-hero-secondary">Sign In</a>
+  </div>
+  <div class="hero-stats">
+    <div class="stat-pill"><strong>10k+</strong> Tasks Completed</div>
+    <div class="stat-pill"><strong>Smart</strong> Notifications</div>
+    <div class="stat-pill"><strong>Free</strong> Forever</div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="features" id="features">
+  <div class="section-header">
+    <h2>Everything You Need to <span class="gradient-text">Stay on Track</span></h2>
+    <p>Purpose-built features for focused productivity</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <div class="feature-icon purple"><i class="fa-solid fa-bell"></i></div>
+      <h3>Smart Notifications</h3>
+      <p>Get alerted 1 day before, same-day reminders, 5-minute countdown, and overdue alerts. Never miss a deadline.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon blue"><i class="fa-solid fa-rotate"></i></div>
+      <h3>Recurring Tasks</h3>
+      <p>Set daily, weekly, or monthly recurrence. Next occurrence is created automatically when you complete a task.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon green"><i class="fa-solid fa-chart-line"></i></div>
+      <h3>Productivity Analytics</h3>
+      <p>Visual charts for completion rates, monthly output, category breakdown, and priority distribution.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon orange"><i class="fa-solid fa-filter"></i></div>
+      <h3>Smart Filtering</h3>
+      <p>Filter by status, category, and priority. Search tasks instantly. Sort by date or urgency.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon red"><i class="fa-solid fa-clock"></i></div>
+      <h3>Task Snooze</h3>
+      <p>Not ready yet? Snooze tasks for 5, 10, 30, or 60 minutes. Stay in control of your schedule.</p>
+    </div>
+    <div class="feature-card">
+      <div class="feature-icon teal"><i class="fa-solid fa-shield-halved"></i></div>
+      <h3>Secure & Private</h3>
+      <p>JWT authentication, bcrypt password hashing, and route protection keep your data safe.</p>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section class="how" id="how">
+  <div class="section-header">
+    <h2>Get Started in <span class="gradient-text">3 Simple Steps</span></h2>
+  </div>
+  <div class="steps-grid">
+    <div class="step">
+      <div class="step-num">1</div>
+      <h3>Create Account</h3>
+      <p>Register free in seconds. No credit card required.</p>
+    </div>
+    <div class="step-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <h3>Add Tasks</h3>
+      <p>Create tasks with priorities, categories, and due times.</p>
+    </div>
+    <div class="step-arrow"><i class="fa-solid fa-arrow-right"></i></div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <h3>Stay on Track</h3>
+      <p>Get notified, track progress, and hit every deadline.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA BANNER -->
+<section class="cta-banner">
+  <h2>Ready to Take Control of Your Day?</h2>
+  <p>Join thousands of users who never miss a deadline.</p>
+  <a href="register.html" class="btn-hero-primary">Create Free Account <i class="fa-solid fa-rocket"></i></a>
+</section>
+
+<footer class="landing-footer">
+  <div class="footer-brand"><i class="fa-solid fa-brain"></i> DueMind Pro</div>
+  <p>© 2025 DueMind Pro. Built with ❤️ for productive people.</p>
+</footer>
+
+<script>
+  function toggleMenu() {
+    document.querySelector('.nav-links').classList.toggle('open');
+  }
+  // Redirect if already logged in
+ // if (localStorage.getItem('dm_token')) {
+   // window.location.href = 'pages/dashboard.html';
+  //}
+</script>
+</body>
+</html>

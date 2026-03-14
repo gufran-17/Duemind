@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login — DueMind Pro</title>
+
+  <link rel="stylesheet" href="css/main.css">
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+</head>
+
+<body class="auth-body">
+
+<div class="auth-container">
+
+  <div class="auth-left">
+
+<div class="auth-brand">
+  <i class="fa-solid fa-brain"></i>
+  <span>DueMind Pro</span>
+</div>
+
+<h1>Welcome back,<br>Stay Productive 🚀</h1>
+
+<p>
+  Sign in to manage your tasks, track your goals, and never miss a deadline.
+</p>
+
+<div class="auth-perks">
+
+  <div class="perk">
+    <i class="fa-solid fa-check-circle"></i>
+    Smart Notifications
+  </div>
+
+  <div class="perk">
+    <i class="fa-solid fa-check-circle"></i>
+    Analytics Dashboard
+  </div>
+
+  <div class="perk">
+    <i class="fa-solid fa-check-circle"></i>
+    Recurring Tasks
+  </div>
+
+</div>
+
+  </div>
+
+  <div class="auth-right">
+
+<div class="auth-card">
+
+  <h2>Sign In</h2>
+
+  <p class="auth-sub">
+    Don't have an account?
+    <a href="register.html">Sign up free</a>
+  </p>
+
+  <div id="auth-error" class="auth-alert hidden"></div>
+
+  <!-- EMAIL -->
+  <div class="form-group">
+
+    <label>Email Address</label>
+
+    <div class="input-icon">
+      <i class="fa-solid fa-envelope"></i>
+
+      <input
+        type="email"
+        id="email"
+        placeholder="you@example.com"
+        required
+      >
+    </div>
+
+  </div>
+
+  <!-- PASSWORD -->
+
+<div class="form-group">
+
+<label>Password</label>
+
+  <div class="input-icon">
+
+
+<i class="fa-solid fa-lock"></i>
+
+<input
+  type="password"
+  id="password"
+  placeholder="Enter your password"
+  required
+>
+
+  </div>
+
+</div>
+
+  <button
+    class="btn-auth"
+    id="loginBtn"
+    onclick="handleLogin()"
+  >
+    <span>Sign In</span>
+    <i class="fa-solid fa-arrow-right"></i>
+  </button>
+
+  <div class="auth-divider">
+    <span>or</span>
+  </div>
+
+  <a href="index.html" class="btn-back">
+    <i class="fa-solid fa-home"></i>
+    Back to Home
+  </a>
+
+</div>
+
+  </div>
+
+</div>
+
+<script src="js/api.js"></script>
+
+<script src="js/auth.js"></script>
+
+</body>
+</html>

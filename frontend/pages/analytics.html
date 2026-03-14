@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Analytics — DueMind Pro</title>
+  <link rel="stylesheet" href="../css/app.css">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.min.js"></script>
+</head>
+<body>
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-brand"><i class="fa-solid fa-brain"></i><span>DueMind Pro</span></div>
+  <nav class="sidebar-nav">
+    <a href="dashboard.html" class="nav-item"><i class="fa-solid fa-gauge"></i><span>Dashboard</span></a>
+    <a href="tasks.html" class="nav-item"><i class="fa-solid fa-list-check"></i><span>All Tasks</span></a>
+    <a href="completed.html" class="nav-item"><i class="fa-solid fa-circle-check"></i><span>Completed</span></a>
+    <a href="analytics.html" class="nav-item active"><i class="fa-solid fa-chart-bar"></i><span>Analytics</span></a>
+    <a href="profile.html" class="nav-item"><i class="fa-solid fa-user"></i><span>Profile</span></a>
+  </nav>
+  <div class="sidebar-footer"><button class="btn-logout" onclick="logout()"><i class="fa-solid fa-right-from-bracket"></i> Logout</button></div>
+</aside>
+<div class="main-wrapper">
+  <header class="topbar">
+    <button class="sidebar-toggle" onclick="toggleSidebar()"><i class="fa-solid fa-bars"></i></button>
+    <div class="topbar-title"><h1>Analytics</h1></div>
+    <div class="topbar-right">
+      <div class="topbar-user"><div class="user-avatar" id="userAvatar">U</div><span id="userName"></span></div>
+    </div>
+  </header>
+  <main class="content">
+    <!-- COMPLETION RATE -->
+    <div class="stats-grid" style="grid-template-columns:repeat(3,1fr)">
+      <div class="stat-card">
+        <div class="stat-icon purple"><i class="fa-solid fa-percent"></i></div>
+        <div class="stat-info"><div class="stat-value" id="completionRate">—</div><div class="stat-label">Completion Rate</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon green"><i class="fa-solid fa-check"></i></div>
+        <div class="stat-info"><div class="stat-value" id="totalCompleted">—</div><div class="stat-label">Tasks Completed</div></div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-icon blue"><i class="fa-solid fa-layer-group"></i></div>
+        <div class="stat-info"><div class="stat-value" id="totalAll">—</div><div class="stat-label">Total Tasks</div></div>
+      </div>
+    </div>
+    <!-- CHARTS GRID -->
+    <div class="charts-grid">
+      <div class="chart-card">
+        <h3>Monthly Tasks (Last 6 Months)</h3>
+        <canvas id="monthlyChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Tasks by Category</h3>
+        <canvas id="categoryChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Completion Rate</h3>
+        <canvas id="completionChart"></canvas>
+      </div>
+      <div class="chart-card">
+        <h3>Tasks by Priority</h3>
+        <canvas id="priorityChart"></canvas>
+      </div>
+    </div>
+  </main>
+</div>
+<script src="../js/api.js"></script>
+<script src="../js/analytics.js"></script>
+</body></html>
