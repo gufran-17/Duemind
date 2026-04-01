@@ -12,6 +12,7 @@ function escHtml(str) {
   return d.innerHTML;
 }
 
+
 async function loadTasks() {
   const params = {
     status:   document.getElementById('filterStatus').value,
@@ -25,10 +26,10 @@ async function loadTasks() {
   Object.keys(params).forEach(k => { if (params[k] === 'ALL') params[k] = ''; });
 
   const res = await TaskAPI.getAll(params);
-  if (!res.ok) return;
+  if (!res || !res.ok) return;
 
   // FIX: ensure completed tasks are removed correctly
-  allTasks = res.data.tasks.filter(t => Number(t.is_completed) === 0);
+  allTasks = (res.data?.tasks || []).filter(t => Number(t.is_completed) === 0);
 
   renderTasks(allTasks);
 }

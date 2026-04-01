@@ -1,36 +1,47 @@
 const nodemailer = require("nodemailer");
 
-// create transporter
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true, // ✅ FIXED
   auth: {
     user: process.env.EMAIL_USER,
-    pass: process.env.EMAIL_PASS
+    pass: process.env.EMAIL_PASS,
+  },
+  connectionTimeout: 30000,
+  greetingTimeout: 30000,
+});
+
+// connection check
+transporter.verify((err, success) => {
+  if (err) {
+    console.log("❌ SMTP ERROR:", err);
+  } else {
+    console.log("✅ SMTP READY");
   }
 });
 
-// send email function
-const sendReminderEmail = async (email, subject, message) => {
-
+const sendReminderEmail = async (to, subject, html, retry = 0) => {
   try {
+    console.log("📤 Sending to:", to);
 
-    const mailOptions = {
-      from: `"DueMind Reminder" <${process.env.EMAIL_USER}>`,
-      to: email,
-      subject: subject,
-      text: message
-    };
+    const info = await transporter.sendMail({
+      from: `"DueMind" <${process.env.EMAIL_USER}>`,
+      to,
+      subject,
+      html,
+    });
 
-    const info = await transporter.sendMail(mailOptions);
-
-    console.log("Email sent:", info.response);
+    console.log("✅ Email sent:", info.response);
 
   } catch (error) {
+    console.log("❌ Email failed:", error.message);
 
-    console.error("Email error:", error);
-
+    if (retry < 2) {
+      console.log("🔁 Retrying...");
+      return sendReminderEmail(to, subject, html, retry + 1);
+    }
   }
-
 };
 
 module.exports = sendReminderEmail;

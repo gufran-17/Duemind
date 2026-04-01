@@ -12,7 +12,7 @@ if (greetEl) greetEl.textContent = `${greet}, ${getUser()?.name?.split(' ')[0]} 
 // ── Load Stats ─────────────────────────────────────────────
 async function loadStats() {
   const res = await TaskAPI.getStats();
-  if (!res.ok) return;
+  if (!res || !res.ok) return;
   const { stats, recent } = res.data;
 
   document.getElementById('statTotal').textContent     = stats.total     || 0;
@@ -46,7 +46,7 @@ function renderRecentTasks(tasks) {
           <span class="badge badge-status-${t.status}">${t.status.replace('_',' ')}</span>
           <span class="badge badge-priority-${t.priority}">${t.priority}</span>
           <span class="badge badge-category">${t.category}</span>
-          <span class="due-date ${isOverdue(t.due_datetime) && !t.is_completed ? 'overdue' : ''}">
+          <span class="due-date ${t.status === 'OVERDUE' ? 'overdue' : ''}">
             <i class="fa-regular fa-clock"></i> ${formatDateTime(t.due_datetime)}
           </span>
         </div>
@@ -165,4 +165,4 @@ if (typeof initNotifications === 'function') initNotifications();
 // Auto refresh dashboard every 30 seconds
 setInterval(() => {
   loadStats();
-}, 30000);
+}, 10000);

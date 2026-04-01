@@ -20,3 +20,18 @@ build/
 # IDE
 .vscode/
 .idea/
+
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.backup
+.terraform.lock.hcl
+
+# Keys
+*.pem
+
+# Env
+.env
+
+# Node
+node_modules/

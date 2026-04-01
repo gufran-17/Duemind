@@ -74,8 +74,13 @@ function checkTaskNotifications(task) {
 
 async function runNotificationCheck() {
   const res = await TaskAPI.getAll();
-  if (!res.ok) return;
-  const tasks = res.data.tasks.filter(t => !t.is_completed);
+
+  // 🔥 safe check
+  if (!res || !res.ok) return;
+
+  // 🔥 safe tasks access
+  const tasks = (res.data?.tasks || []).filter(t => !t.is_completed);
+
   clearOldNotifs(tasks);
   tasks.forEach(checkTaskNotifications);
 }

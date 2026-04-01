@@ -2,7 +2,7 @@
    api.js — Centralised API layer + auth helpers
    ======================================================== */
 
-const API_BASE = 'http://localhost:5000/api';
+const API_URL = "http://15.207.150.47:5000/api";
 
 // ── Token helpers ──────────────────────────────────────────
 const getToken  = ()      => localStorage.getItem('dm_token');
@@ -67,24 +67,36 @@ function togglePw(inputId, btn) {
 // ── Core fetch wrapper ─────────────────────────────────────
 async function apiFetch(path, options = {}) {
   const token = getToken();
-  const res = await fetch(`${API_BASE}${path}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      ...(token ? { Authorization: `Bearer ${token}` } : {}),
-      ...options.headers
-    },
-    ...options
-  });
 
-  const data = await res.json();
-
-  if (res.status === 401) {
-    clearAuth();
-    window.location.href = '../login.html';
-    return;
+  let res;
+  try {
+    res = await fetch(`${API_URL}${path}`, {
+      headers: {
+        'Content-Type': 'application/json',
+        ...(token ? { Authorization: `Bearer ${token}` } : {}),
+        ...options.headers
+      },
+      ...options
+    });
+  } catch (err) {
+    console.error("Network error:", err);
+    return { ok: false, data: { message: "Network error" } };
   }
 
-  return { ok: res.ok, status: res.status, data };
+  let data;
+  try {
+    data = await res.json();
+  } catch (err) {
+    console.error("Server returned HTML instead of JSON");
+    return { ok: false, data: { message: "Invalid server response" } };
+  }
+  if (res.status === 401) {
+  clearAuth();
+  window.location.href = '../login.html';
+  return;
+}
+
+  return { ok: res.ok, data };
 }
 
 // ── Auth API ───────────────────────────────────────────────

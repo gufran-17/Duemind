@@ -275,48 +275,31 @@ async markComplete(id, userId) {
   },
 
   // ── CRON: update statuses ──────────────────────────────────
-    // ── CRON: update statuses ──────────────────────────────────
-  async updateTaskStatuses() {
+   async updateTaskStatuses() {
 
-    const now = new Date();
+  const now = new Date();
 
-    // find tasks that are due
-    const [tasks] = await db.execute(
-      `SELECT t.*, u.email
-       FROM tasks t
-       JOIN users u ON t.user_id = u.id
-       WHERE t.is_completed = 0
-       AND t.due_datetime <= ?
-       AND t.status != 'OVERDUE'`,
-      [now]
-    );
+  const soonThreshold = new Date(now.getTime() + 24 * 60 * 60 * 1000);
 
-    // send email reminders
-    for (const task of tasks) {
-      await sendReminderEmail(task.email, task.title);
-    }
+  await db.execute(
+    `UPDATE tasks
+     SET status='OVERDUE'
+     WHERE is_completed=0
+     AND due_datetime < ?
+     AND status != 'OVERDUE'`,
+    [now]
+  );
 
-    const soonThreshold = new Date(now.getTime() + 24 * 60 * 60 * 1000);
+  await db.execute(
+    `UPDATE tasks
+     SET status='DUE_SOON'
+     WHERE is_completed=0
+     AND due_datetime BETWEEN ? AND ?
+     AND status='UPCOMING'`,
+    [now, soonThreshold]
+  );
 
-    await db.execute(
-      `UPDATE tasks
-       SET status='OVERDUE'
-       WHERE is_completed=0
-       AND due_datetime < ?
-       AND status != 'OVERDUE'`,
-      [now]
-    );
-
-    await db.execute(
-      `UPDATE tasks
-       SET status='DUE_SOON'
-       WHERE is_completed=0
-       AND due_datetime BETWEEN ? AND ?
-       AND status='UPCOMING'`,
-      [now, soonThreshold]
-    );
-
-  }
+}
 
 };
 
