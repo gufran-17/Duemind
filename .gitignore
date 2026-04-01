@@ -21,12 +21,11 @@ build/
 .vscode/
 .idea/
 
-# Terraform
-.terraform/
+# Terraform (IMPORTANT FIX)
+**/.terraform/
+**/.terraform.lock.hcl
 *.tfstate
 *.tfstate.backup
-.terraform.lock.hcl
-
 # Keys
 *.pem
 
