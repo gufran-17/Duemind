@@ -13,12 +13,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Code') {
-            steps {
-                git 'https://github.com/gufran-17/Duemind.git'
-            }
-        }
-
         stage('Build Docker Images') {
             steps {
                 sh '''
