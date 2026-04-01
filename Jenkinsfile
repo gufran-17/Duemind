@@ -5,8 +5,7 @@ pipeline {
         AWS_REGION = "ap-south-1"
         ACCOUNT_ID = "062000001375"
 
-        BACKEND_REPO = "${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/duemind-backend"
-        FRONTEND_REPO = "${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/duemind-frontend"
+        ECR_REPO = "${ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/duemind"
 
         IMAGE_TAG = "v${BUILD_NUMBER}"
     }
@@ -31,14 +30,14 @@ pipeline {
             }
         }
 
-        stage('Push to ECR') {
+        stage('Tag & Push Images') {
             steps {
                 sh '''
-                docker tag backend:${IMAGE_TAG} $BACKEND_REPO:${IMAGE_TAG}
-                docker tag frontend:${IMAGE_TAG} $FRONTEND_REPO:${IMAGE_TAG}
+                docker tag backend:${IMAGE_TAG} $ECR_REPO:backend-${IMAGE_TAG}
+                docker tag frontend:${IMAGE_TAG} $ECR_REPO:frontend-${IMAGE_TAG}
 
-                docker push $BACKEND_REPO:${IMAGE_TAG}
-                docker push $FRONTEND_REPO:${IMAGE_TAG}
+                docker push $ECR_REPO:backend-${IMAGE_TAG}
+                docker push $ECR_REPO:frontend-${IMAGE_TAG}
                 '''
             }
         }
@@ -49,8 +48,8 @@ pipeline {
                 cd terraform/ECS
                 terraform init
                 terraform apply -auto-approve \
-                -var="backend_image=$BACKEND_REPO:${IMAGE_TAG}" \
-                -var="frontend_image=$FRONTEND_REPO:${IMAGE_TAG}"
+                -var="backend_image=$ECR_REPO:backend-${IMAGE_TAG}" \
+                -var="frontend_image=$ECR_REPO:frontend-${IMAGE_TAG}"
                 '''
             }
         }
