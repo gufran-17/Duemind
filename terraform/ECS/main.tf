@@ -5,6 +5,15 @@
 # ---------------------------
 resource "aws_ecs_cluster" "main" {
   name = "duemind-cluster"
+
+  setting {
+    name  = "containerInsights"
+    value = "disabled"
+  }
+
+  lifecycle {
+    prevent_destroy = true
+  }
 }
 
 # ---------------------------
