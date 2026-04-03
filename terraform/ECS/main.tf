@@ -11,9 +11,6 @@ resource "aws_ecs_cluster" "main" {
     value = "disabled"
   }
 
-  lifecycle {
-    prevent_destroy = true
-  }
 }
 
 # ---------------------------
@@ -105,7 +102,7 @@ resource "aws_ecs_service" "app" {
   # Stop old task BEFORE starting new one.
   # Default (100% min / 200% max) tries to run both simultaneously — port conflict guaranteed.
   deployment_minimum_healthy_percent = 0
-  deployment_maximum_percent         = 200
+  deployment_maximum_percent         = 150
 
    force_new_deployment = true 
 
@@ -118,4 +115,6 @@ resource "aws_ecs_service" "app" {
 resource "aws_cloudwatch_log_group" "ecs" {
   name              = "/ecs/duemind"
   retention_in_days = 7
+
+   
 }
