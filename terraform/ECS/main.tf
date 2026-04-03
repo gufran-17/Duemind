@@ -24,7 +24,7 @@ resource "aws_ecs_task_definition" "app" {
   container_definitions = jsonencode([
     {
       name      = "backend"
-      image     = "062000001375.dkr.ecr.ap-south-1.amazonaws.com/duemind:backend"
+      image = var.backend_image
       essential = true
 
       cpu               = 128   # out of 2048 vCPU units on t3.small
@@ -58,7 +58,7 @@ resource "aws_ecs_task_definition" "app" {
     },
     {
       name      = "frontend"
-      image     = "062000001375.dkr.ecr.ap-south-1.amazonaws.com/duemind:${var.frontend_image}"
+      image = var.frontend_image
       essential = true
 
       cpu               = 64
