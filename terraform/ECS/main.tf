@@ -1,18 +1,3 @@
-# main.tf
-
-# --------------------------- 
-# ECS Cluster 
-# ---------------------------
-resource "aws_ecs_cluster" "main" {
-  name = "duemind-cluster"
-
-  setting {
-    name  = "containerInsights"
-    value = "disabled"
-  }
-
-}
-
 # ---------------------------
 # TASK DEFINITION
 # ---------------------------
@@ -21,18 +6,15 @@ resource "aws_ecs_task_definition" "app" {
   requires_compatibilities = ["EC2"]
   network_mode             = "host"
 
-  # No top-level cpu/memory for host mode EC2 — let containers define their own
-  # (Task-level cpu/memory is required for Fargate, optional for EC2 host mode)
-
   container_definitions = jsonencode([
     {
       name      = "backend"
-      image = var.backend_image
+      image     = var.backend_image
       essential = true
 
-      cpu               = 128   # out of 2048 vCPU units on t3.small
-      memoryReservation = 256   # soft limit — won't block placement
-      memory            = 400   # hard limit
+      cpu               = 128
+      memoryReservation = 256
+      memory            = 400
 
       portMappings = [
         {
@@ -61,7 +43,7 @@ resource "aws_ecs_task_definition" "app" {
     },
     {
       name      = "frontend"
-      image = var.frontend_image
+      image     = var.frontend_image
       essential = true
 
       cpu               = 64
@@ -89,32 +71,19 @@ resource "aws_ecs_task_definition" "app" {
 }
 
 # ---------------------------
-# ECS SERVICE — key fix is here
+# ECS SERVICE
 # ---------------------------
 resource "aws_ecs_service" "app" {
   name            = "duemind-service"
-  cluster         = aws_ecs_cluster.main.id
+  cluster         = "duemind-cluster"   # ✅ existing cluster reuse
   task_definition = aws_ecs_task_definition.app.arn
   desired_count   = 1
   launch_type     = "EC2"
 
-  # THIS IS THE CRITICAL FIX:
-  # Stop old task BEFORE starting new one.
-  # Default (100% min / 200% max) tries to run both simultaneously — port conflict guaranteed.
   deployment_minimum_healthy_percent = 0
-  deployment_maximum_percent         = 150
+  deployment_maximum_percent         = 100   # ✅ FIX (host mode safe)
 
-   force_new_deployment = true 
+  force_new_deployment = true
 
   depends_on = [aws_ecs_task_definition.app]
-}
-
-# ---------------------------
-# CloudWatch Log Group
-# ---------------------------
-resource "aws_cloudwatch_log_group" "ecs" {
-  name              = "/ecs/duemind"
-  retention_in_days = 7
-
-   
 }
