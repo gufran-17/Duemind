@@ -46,7 +46,7 @@ pipeline {
             steps {
                 sh '''
                 cd terraform/ECS
-                terraform init
+                terraform init --upgrade
                 terraform apply -auto-approve \
                 -var="backend_image=$ECR_REPO:backend-${IMAGE_TAG}" \
                 -var="frontend_image=$ECR_REPO:frontend-${IMAGE_TAG}"

@@ -1,7 +1,4 @@
 # main.tf
-variable "frontend_image" {
-  default = "frontend-v1"
-}
 
 # --------------------------- 
 # ECS Cluster 
@@ -100,6 +97,8 @@ resource "aws_ecs_service" "app" {
   # Default (100% min / 200% max) tries to run both simultaneously — port conflict guaranteed.
   deployment_minimum_healthy_percent = 0
   deployment_maximum_percent         = 200
+
+   force_new_deployment = true 
 
   depends_on = [aws_ecs_task_definition.app]
 }
