@@ -47,6 +47,7 @@ async function handleLogin() {
     '<i class="fa-solid fa-spinner fa-spin"></i> Signing in...';
 
   const res = await AuthAPI.login({ email, password });
+  if (!res) return;
 
   if (res.ok) {
 
@@ -90,6 +91,7 @@ async function handleRegister() {
     '<i class="fa-solid fa-spinner fa-spin"></i> Creating account...';
 
   const res = await AuthAPI.register({ name, email, password });
+  if (!res) return;
 
   if (res.ok) {
 

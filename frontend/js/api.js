@@ -2,7 +2,7 @@
    api.js — Centralised API layer + auth helpers
    ======================================================== */
 
-const API_URL = "http://15.207.150.47:5000/api";
+const API_URL = "/api";
 
 // ── Token helpers ──────────────────────────────────────────
 const getToken  = ()      => localStorage.getItem('dm_token');
@@ -90,7 +90,8 @@ async function apiFetch(path, options = {}) {
     console.error("Server returned HTML instead of JSON");
     return { ok: false, data: { message: "Invalid server response" } };
   }
-  if (res.status === 401) {
+  
+  if (res.status === 401 && !path.startsWith('/auth/')) {
   clearAuth();
   window.location.href = '../login.html';
   return;
