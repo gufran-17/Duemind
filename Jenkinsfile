@@ -55,7 +55,7 @@ pipeline {
 
                     # State is in S3 — init just downloads providers
                     # No state file lives in workspace
-                    terraform init -input=false -reconfigure -force-copy
+                    terraform init -upgrade -input=false -reconfigure -force-copy
 
                     # plan first so you can see what will change in logs
                     terraform plan \
