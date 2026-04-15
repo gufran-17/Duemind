@@ -1,9 +1,9 @@
 variable "backend_image" {
-  description = "Backend Docker Image"
+  description = "Backend Docker image URI from ECR"
   type        = string
 }
 
 variable "frontend_image" {
-  description = "Frontend Docker Image"
+  description = "Frontend Docker image URI from ECR"
   type        = string
 }
