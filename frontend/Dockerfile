@@ -1,21 +1,10 @@
-# BUILD STAGE
-FROM node:18-alpine as builder
-
-WORKDIR /app
-
-COPY . .
-
-RUN npm install
-RUN npm run build
-
-# PRODUCTION STAGE
 FROM nginx:alpine
 
-RUN rm /etc/nginx/conf.d/default.conf
+# copy frontend files
+COPY . /usr/share/nginx/html
 
+# 💥 IMPORTANT: custom nginx config
 COPY nginx.conf /etc/nginx/conf.d/default.conf
-
-COPY --from=builder /app/build /usr/share/nginx/html
 
 EXPOSE 80
 
