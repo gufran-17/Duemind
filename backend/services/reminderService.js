@@ -129,7 +129,7 @@ function generateHTML(task, messageText) {
       <p><strong>📅 Due:</strong> ${formatDateTime(task.due_datetime)}</p>
     </div>
     <div style="text-align:center; margin-top:20px;">
-      <a href="http://localhost:3000"
+      <a href="https://www.duemind.in"
         style="background:#4CAF50;color:white;padding:10px 20px;border-radius:5px;text-decoration:none;">
         Open DueMind
       </a>

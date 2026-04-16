@@ -13,7 +13,8 @@ if (greetEl) greetEl.textContent = `${greet}, ${getUser()?.name?.split(' ')[0]} 
 async function loadStats() {
   const res = await TaskAPI.getStats();
   if (!res || !res.ok) return;
-  const { stats, recent } = res.data;
+  const stats = res.data?.stats || {};
+const recent = res.data?.recent || [];
 
   document.getElementById('statTotal').textContent     = stats.total     || 0;
   document.getElementById('statOverdue').textContent   = stats.overdue   || 0;
